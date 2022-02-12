@@ -67,7 +67,7 @@ const fetchHeadlines = async () => {
 // 		"x-rapidapi-key": "07d887edadmsh927980dde538d9ep1403f3jsn5fe2edcc4e7a"
 // 	}
 // })
-fetch("http://localhost:8000/", {
+fetch("https://news-general.herokuapp.com/", {
 	"method": "GET",
 	// "headers": {
 	// 	"x-rapidapi-host": "news193.p.rapidapi.com",
