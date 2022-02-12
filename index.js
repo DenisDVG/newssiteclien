@@ -1,12 +1,12 @@
 // variables
-const generalBtn = document.getElementById("genral");
-const businessBtn = document.getElementById("business");
-const sportsBtn = document.getElementById("sport");
-const entertainmentBtn = document.getElementById("entertainment");
-const technologyBtn = document.getElementById("technology");
-const searchBtn = document.getElementById("searchBtn");
+//const generalBtn = document.getElementById("genral");
+//const businessBtn = document.getElementById("business");
+//const sportsBtn = document.getElementById("sport");
+//const entertainmentBtn = document.getElementById("entertainment");
+//const technologyBtn = document.getElementById("technology");
+//const searchBtn = document.getElementById("searchBtn");
 
-const newsQuery = document.getElementById("newsQuery");
+//const newsQuery = document.getElementById("newsQuery");
 const newsType = document.getElementById("newsType");
 const newsdetails = document.getElementById("newsdetails");
 
@@ -29,52 +29,92 @@ window.onload = function() {
 };
 
 
-generalBtn.addEventListener("click",function(){
-    newsType.innerHTML="<h4>General news</h4>";
-    fetchGeneralNews();
-});
+// generalBtn.addEventListener("click",function(){
+//     newsType.innerHTML="<h4>General news</h4>";
+//     fetchGeneralNews();
+// });
 
-businessBtn.addEventListener("click",function(){
-    newsType.innerHTML="<h4>Business</h4>";
-    fetchBusinessNews();
-});
+// businessBtn.addEventListener("click",function(){
+//     newsType.innerHTML="<h4>Business</h4>";
+//     fetchBusinessNews();
+// });
 
-sportsBtn.addEventListener("click",function(){
-    newsType.innerHTML="<h4>Sports</h4>";
-    fetchSportsNews();
-});
+// sportsBtn.addEventListener("click",function(){
+//     newsType.innerHTML="<h4>Sports</h4>";
+//     fetchSportsNews();
+// });
 
-entertainmentBtn.addEventListener("click",function(){
-    newsType.innerHTML="<h4>Entertainment</h4>";
-    fetchEntertainmentNews();
-});
+// entertainmentBtn.addEventListener("click",function(){
+//     newsType.innerHTML="<h4>Entertainment</h4>";
+//     fetchEntertainmentNews();
+// });
 
-technologyBtn.addEventListener("click",function(){
-    newsType.innerHTML="<h4>Technology</h4>";
-    fetchTechnologyNews();
-});
+// technologyBtn.addEventListener("click",function(){
+//     newsType.innerHTML="<h4>Technology</h4>";
+//     fetchTechnologyNews();
+// });
 
-searchBtn.addEventListener("click",function(){
-    newsType.innerHTML="<h4>Search : "+newsQuery.value+"</h4>";
-    fetchQueryNews();
-});
+// searchBtn.addEventListener("click",function(){
+//     newsType.innerHTML="<h4>Search : "+newsQuery.value+"</h4>";
+//     fetchQueryNews();
+// });
 
 const fetchHeadlines = async () => {
-
-
-    const response = await fetch(HEADLINES_NEWS+API_KEY);
-    newsDataArr = [];
-    if(response.status >=200 && response.status < 300) {
-        const myJson = await response.json();
-        newsDataArr = myJson.articles;
-    } else {
-        // handle errors
-        console.log(response.status, response.statusText);
-        newsdetails.innerHTML = "<h5>No data found.</h5>"
-        return;
-    }
-
+//     fetch("https://news193.p.rapidapi.com/", {
+// 	"method": "GET",
+// 	"headers": {
+// 		"x-rapidapi-host": "news193.p.rapidapi.com",
+// 		"x-rapidapi-key": "07d887edadmsh927980dde538d9ep1403f3jsn5fe2edcc4e7a"
+// 	}
+// })
+fetch("http://localhost:8000/", {
+	"method": "GET",
+	// "headers": {
+	// 	"x-rapidapi-host": "news193.p.rapidapi.com",
+	// 	"x-rapidapi-key": "07d887edadmsh927980dde538d9ep1403f3jsn5fe2edcc4e7a"
+	// }
+})
+.then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+    newsDataArr = data;
     displayNews();
+  })
+.catch(err => {
+	console.error(err);
+    console.log(response.status, response.statusText);
+    newsdetails.innerHTML = "<h5>No data found.</h5>"
+    return;
+});
+
+// -author: "Patrick Reilly"
+// content: "Former President Donald Trump shot back at his former Vice President Mike Pence on Friday after Pence said that Trump was wrong in claiming he had the ability as vice president to overturn the 2020 e… [+2940 chars]"
+// description: "Trump bashed his vice president ahead of the Capitol Hill riot for not having the “courage” to reject certified electors from Arizona, Georgia and Pennsylvania for then-President-elect Joe Biden.…"
+// publishedAt: "2022-02-05T06:33:00Z"
+// source:
+// id: null
+// name: "New York Post"
+// [[Prototype]]: Object
+// title: "Trump blasts Pence for calling him 'wrong,' for suggesting VP could overturn election - New York Post "
+// url: "https://nypost.com/2022/02/05/donald-trump-responds-to-mike-pences-rejection-of-overturning-election/"
+// urlToImage: "https://nypost.com/wp-content/uploads/sites/2/2022/02/pence-trump-077.jpg?quality=90&strip=all&w=1024"
+
+
+    // const response = await fetch(HEADLINES_NEWS+API_KEY);
+    // newsDataArr = [];
+    // if(response.status >=200 && response.status < 300) {
+    //     const myJson = await response.json();
+    //     newsDataArr = myJson.articles;
+    // } else {
+    //     // handle errors
+    //     console.log(response.status, response.statusText);
+    //     newsdetails.innerHTML = "<h5>No data found.</h5>"
+    //     return;
+    // }
+
+    
 }
 
 
@@ -190,8 +230,9 @@ function displayNews() {
 
     newsDataArr.forEach(news => {
 
-        var date = news.publishedAt.split("T");
-        
+        // var date = news.publishedAt.split("T");
+        var date = news;
+
         var col = document.createElement('div');
         col.className="col-sm-12 col-md-4 col-lg-3 p-2 card";
 
@@ -216,7 +257,7 @@ function displayNews() {
 
         var dateHeading = document.createElement('h6');
         dateHeading.className = "text-primary";
-        dateHeading.innerHTML = date[0];
+        dateHeading.innerHTML = "";//date[0];
 
         var discription = document.createElement('p');
         discription.className="text-muted";
